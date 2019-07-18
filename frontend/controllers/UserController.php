@@ -18,6 +18,9 @@ use yii\widgets\ActiveForm;
  */
 class UserController extends Controller
 {
+    /**
+     * @var \mongosoft\soapclient\Client
+     */
     public $client;
 
     /**
@@ -59,8 +62,9 @@ class UserController extends Controller
         ];
     }
 
-    /**
-     *  GridView with all users (request from SOAP)
+    /** GridView with all users (request from SOAP)
+     *
+     * @return string
      */
     public function actionIndex()
     {
@@ -75,8 +79,11 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Returning a form to update a user
+    /**Returning a form to update a user
+     *
+     * @param $id
+     *
+     * @return string|\yii\web\Response
      */
     public function actionUpdate($id)
     {
@@ -93,8 +100,9 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * returning a Dynamic ActiveForm to create users
+    /** Returning a Dynamic ActiveForm to create users
+     *
+     * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
@@ -110,8 +118,9 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Action used with views/user/create to add dynamic forms
+    /** Action used with views/user/create to add dynamic forms
+     *
+     * @return string
      */
     public function actionForm()
     {
@@ -122,8 +131,9 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Action used to delete a user
+    /** Action used to delete a user
+     *
+     * @return \yii\web\Response
      */
     public function actionDelete()
     {

@@ -8,9 +8,6 @@ use yii\helpers\Html;
 
 $this->title = 'Users';
 
-//\yii\helpers\VarDumper::dump($dataProvider, 10, true);
-//die();
-
 ?>
 <div class="user-index">
     <h1> <?= \yii\helpers\Html::encode($this->title) ?></h1>
