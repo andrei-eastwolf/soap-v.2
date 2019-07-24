@@ -51,18 +51,19 @@ class ApiController extends Controller
      * @param string the password
      *
      * @return string|bool the login
+     *
      * @soap
      */
     public function login($username, $password)
     {
-        $identity = new UserIdentity($username, $password);
 
+        $identity = new UserIdentity($username, $password);
         $identity->authenticate();
-        return $identity->auth_key;
 
         if ($identity->error_code == UserIdentity::ERROR_NONE) {
             return $identity->auth_key;
         }
+
 
         return false;
     }
