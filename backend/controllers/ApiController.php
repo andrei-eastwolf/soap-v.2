@@ -6,6 +6,7 @@ use common\models\LoginForm;
 use common\models\User;
 use frontend\models\UserCreateForm;
 use Yii;
+use yii\data\ArrayDataProvider;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use backend\models\UserIdentity;
@@ -81,17 +82,25 @@ class ApiController extends Controller
      * @param string $auth_key
      *
      * @return string
+     *
      * @soap
      */
     public function getAllUsers($auth_key)
     {
-        $data = User::find()->asArray()->all();
         $verify = User::findOne(['auth_key' => $auth_key]);
-        if (!empty($verify)) {
-            return json_encode($data);
+        if (empty($verify)) {
+            return json_encode(['message' => "Wrong credentials"]);
         }
 
-        return json_encode(['message' => "Wrong credentials"]);
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => User::find()->asArray()->all(),
+        ]);
+
+        $data = [];
+
+        $data['users'] = $dataProvider->models;
+
+        return json_encode($data);
     }
 
     /**

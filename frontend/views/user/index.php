@@ -4,7 +4,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model yii\data\ActiveDataProvider */
 
 $this->title = 'Users';
 
@@ -16,8 +16,11 @@ $this->title = 'Users';
 
 <?php
 echo GridView::widget([
-    'dataProvider' => $dataProvider,
-    'layout' => "{items}\n{pager}",
+    'dataProvider' => $model,
+    'layout' => "{summary}\n{items}\n{pager}",
+    'pager' => [
+        'class' => 'yii\widgets\LinkPager',
+    ],
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'username',

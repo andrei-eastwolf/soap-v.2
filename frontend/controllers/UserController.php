@@ -80,14 +80,21 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $model = json_decode($this->client->getAllUsers(Yii::$app->session->get('auth_key')), true);
+        $model = null;
+        $auth_key = Yii::$app->session->get('auth_key');
+        $model = json_decode($this->client->getAllUsers($auth_key), true);
+
+        $pageSize = Yii::$app->request->get('per-page', 5);
+
         $dataProvider = new ArrayDataProvider([
-            'models' => $model
+            'allModels' => $model['users'],
+            'pagination' => [
+                'pageSize' => $pageSize,
+            ]
         ]);
 
         return $this->render('index', [
-            'model' => $model,
-            'dataProvider' => $dataProvider
+            'model' => $dataProvider,
         ]);
     }
 
