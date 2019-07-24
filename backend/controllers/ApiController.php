@@ -10,10 +10,24 @@ use yii\helpers\VarDumper;
 use yii\web\Controller;
 use backend\models\UserIdentity;
 
+/**
+ * Class ApiController
+ * @package backend\controllers
+ */
 class ApiController extends Controller
 {
+    /**
+     * Disabled csrf validation to perform requests from client side.
+     */
     public $enableCsrfValidation = false;
 
+    /**
+     * added soapApi action
+     *
+     * @inheritDoc
+     *
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -27,13 +41,15 @@ class ApiController extends Controller
      * @return int
      * @soap
      */
-    public function pingSOAP() {
+    public function pingSOAP()
+    {
         return time();
     }
 
     /**
      * @param string the username
      * @param string the password
+     *
      * @return string|bool the login
      * @soap
      */
@@ -62,10 +78,12 @@ class ApiController extends Controller
 
     /**
      * @param string $auth_key
+     *
      * @return string
      * @soap
      */
-    public function getAllUsers($auth_key) {
+    public function getAllUsers($auth_key)
+    {
         $data = User::find()->asArray()->all();
         $verify = User::findOne(['auth_key' => $auth_key]);
         if (!empty($verify)) {
@@ -78,10 +96,12 @@ class ApiController extends Controller
     /**
      * @param string $auth_key
      * @param integer $user_id
+     *
      * @return string
      * @soap
      */
-    public function getOneUser($auth_key, $user_id) {
+    public function getOneUser($auth_key, $user_id)
+    {
         $verify = User::findOne(['auth_key' => $auth_key]);
 
         if (!empty($verify)) {
@@ -101,7 +121,8 @@ class ApiController extends Controller
      * @param string $update
      * @soap
      */
-    public function updateUser($auth_key, $user_id, $update) {
+    public function updateUser($auth_key, $user_id, $update)
+    {
         $verify = User::findOne(['auth_key' => $auth_key]);
 
         if (!empty($verify)) {
@@ -121,10 +142,12 @@ class ApiController extends Controller
     /**
      * @param string $auth_key
      * @param string $create
+     *
      * @return string
      * @soap
      */
-    public function createUsers($auth_key, $create) {
+    public function createUsers($auth_key, $create)
+    {
         $verify = User::findOne(['auth_key' => $auth_key]);
 
         if (!empty($verify)) {
@@ -154,7 +177,8 @@ class ApiController extends Controller
      * @param integer $user_id
      * @soap
      */
-    public function deleteUser($auth_key, $user_id) {
+    public function deleteUser($auth_key, $user_id)
+    {
         $verify = User::findOne(['auth_key' => $auth_key]);
 
         if (!empty($verify)) {

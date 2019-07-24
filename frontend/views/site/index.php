@@ -2,27 +2,15 @@
 
 /* @var $this yii\web\View */
 /* @var $ping frontend\controllers\SiteController */
+/* @var $client SoapClient */
 
 $this->title = 'My Yii Application';
-
-$client = new \mongosoft\soapclient\Client([
-    'url' => 'http://soap-server.local.ew/index.php?r=api/soapApi',
-
-]);
-//$auth = array(
-//    'UserName'=>'USERNAME',
-//    'Password'=>'PASSWORD',
-//    'SystemId'=> array('_'=>'DATA','Param'=>'PARAM'),
-//);
-//$header= new SoapHeader('NAMESPACE', 'Auth', $auth, false);
-//$client->__setSoapHeaders($header);
 
 ?>
 <div class="site-index">
 
     <div class="body-content">
         <h1>Auth key: <?= Yii::$app->session->get('auth_key') ?></h1>
-        <h1><?= \yii\helpers\VarDumper::dump($client->__getFunctions(), 10, true) ?></h1>
         <h2><?php if (isset($data['ping'])) {
                 echo $data['ping'];
             } else if (isset($data['login'])) {

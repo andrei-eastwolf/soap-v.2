@@ -22,8 +22,18 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    /**
+     * @var \mongosoft\soapclient\Client
+     */
     public $client;
 
+    /**
+     * SiteController constructor.
+     *
+     * @param $id
+     * @param $module
+     * @param array $config
+     */
     public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -85,6 +95,7 @@ class SiteController extends Controller
      * Displays homepage.
      * Returning all functions available from SOAP API
      * Ping / login / ping_auth functions available from homepage
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -115,6 +126,7 @@ class SiteController extends Controller
                     return $this->render('index', [
                         'data' => $data
                     ]);
+                    break;
                 }
                 case 'ping_auth': {
                     if ($client->pingAuth()) {
@@ -125,11 +137,16 @@ class SiteController extends Controller
                     return $this->render('index', [
                         'data' => $data
                     ]);
+                    break;
+                }
+                case 'default': {
+                    break;
                 }
             }
         }
         return $this->render('index', [
-            'data' => $data
+            'data' => $data,
+            'client' => $this->client
         ]);
     }
 
@@ -246,8 +263,9 @@ class SiteController extends Controller
      * Resets password.
      *
      * @param string $token
-     * @return mixed
      * @throws BadRequestHttpException
+     *
+     * @return mixed
      */
     public function actionResetPassword($token)
     {
@@ -272,7 +290,9 @@ class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
+     *
      * @throws BadRequestHttpException
+     *
      * @return yii\web\Response
      */
     public function actionVerifyEmail($token)
